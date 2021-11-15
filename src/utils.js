@@ -24,7 +24,7 @@ function parseMapName(domain){
       return undefined;
     }
   }else{
-    throw new Error(`the domain is wrong :${domain}`);
+    return undefined;
   }
 }
 
