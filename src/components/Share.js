@@ -155,12 +155,12 @@ function Share(props){
           />
           <ShareIcon
             name="Twitter"
-            iconSrc="https://dadior.s3-ap-northeast-1.amazonaws.com/twitter2.svg"
+            iconSrc='Twitter'
             clickHandler={handleTwitter}
           />
           <ShareIcon
             name="Facebook"
-            iconSrc="https://dadior.s3-ap-northeast-1.amazonaws.com/facebook.svg"
+            iconSrc="Facebook"
             clickHandler={handleFaceBook}
           />
           <ShareIcon

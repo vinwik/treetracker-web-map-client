@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Code from "@material-ui/icons/Code";
 import Email from "@material-ui/icons/Email";
 import LinkIcon from '@material-ui/icons/Link';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
 import React from "react";
 
 const useStyles = makeStyles(theme => ({
@@ -36,8 +38,14 @@ function ShareIcon (props) {
                   return <Avatar>
                     <LinkIcon/>
                   </Avatar>
+                case "Twitter":
+                  return <Avatar>
+                    <TwitterIcon/>
+                  </Avatar>
                 default:
-                  return <Avatar src={props.iconSrc}/>
+                  return <Avatar>
+                      <FacebookIcon/>
+                    </Avatar>
               }
             })()}
           </IconButton>
