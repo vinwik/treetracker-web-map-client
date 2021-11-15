@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     transform: "translate(0, 40px)",
     transition: "all 1s",
     textAlign: "center",
+    color: 'black',
     fontSize: 10,
     fontFamily: "Roboto, Arial, sans-serif",
     borderRadius: 25,
