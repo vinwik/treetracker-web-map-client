@@ -55,8 +55,8 @@ const useStyles = makeStyles(theme => ({
     maxWidth: MAX_WIDTH,
     backgroundColor: "#d8d7d7",
     zIndex: 1,
-    [theme.breakpoints.down("sm")]: {
-      width: "calc(100vw - 22px)",
+    [theme.breakpoints.down('xs')]: {
+      width: 'calc(100vw - 22px)',
     },
     left: 0,
   },
@@ -65,10 +65,9 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     width: WIDTH,
     maxWidth: MAX_WIDTH,
-    backgroundColor: "white",
     zIndex: 1,
-    [theme.breakpoints.down("sm")]: {
-      width: "calc(100vw - 22px)",
+    [theme.breakpoints.down('xs')]: {
+      width: 'calc(100vw - 22px)',
     },
   },
   progress: {
@@ -85,14 +84,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: 40,
     fontWeight: 700,
     fontFamily: "roboto",
-    //color: "#d4d4d4",
-    color: "#bebcbc",
+    color: 'white',
     letterSpacing: "1px",
     //textShadow: "1px 1px 2px #ffffff, -1px -1px 1px #4d4c4c",
-    background: theme.palette.grey.A200,
+    background: '#424242',
     height: HEIGHT,
-    [theme.breakpoints.down("sm")]: {
-      height: `calc((100vw - 22px)/${WIDTH/HEIGHT})`,
+    [theme.breakpoints.down('xs')]: {
+      height: `calc((100vw - 22px)/${WIDTH / HEIGHT})`,
     },
   },
   treePictureBox: {
@@ -105,9 +103,10 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    [theme.breakpoints.down("sm")]: {
-      height: `calc((100vw - 22px)/${WIDTH/HEIGHT})`,
+    [theme.breakpoints.down('xs')]: {
+      height: `calc((100vw - 22px)/${WIDTH / HEIGHT})`,
     },
+    color: 'white'
   },
   treePicture: {
     objectFit: "fill",
@@ -154,7 +153,7 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     height: "100%",
-    overflow: "scroll",
+    overflowY: "auto",
   }, 
   arrowBox: {
     justifyContent: "space-between",
@@ -163,9 +162,9 @@ const useStyles = makeStyles(theme => ({
     zIndex: 19,
     top: 0,
     height: HEIGHT,
-    pointerEvents: "none",
-    [theme.breakpoints.down("sm")]: {
-      height: `calc((100vw - 22px)/${WIDTH/HEIGHT})`,
+    pointerEvents: 'none',
+    [theme.breakpoints.down('xs')]: {
+      height: `calc((100vw - 22px)/${WIDTH / HEIGHT})`,
     },
   },
   arrowIconBox: {
@@ -213,7 +212,8 @@ const useStyles = makeStyles(theme => ({
   hash: {
     width: 18,
     height: 18,
-    background: "#212121",
+    background: 'none',
+    color: 'white',
     fontSize: 15,
   },
   name: {
@@ -243,8 +243,6 @@ function SidePanel(props){
   const classes = useStyles();
   const {tree, state} = props;
   expect(state).oneOf(["none", "show", "hide"]);
-  const {hasPrev = true} = props;
-  const {hasNext = true} = props;
   const [isTreePictureLoaded, setTreePictureLoaded] = React.useState(tree?false:true);
   const [isBasePictureShown, setBasePictureShown] = React.useState(false);
   const [isLeafPictureShown, setLeafPictureShown] = React.useState(false);
@@ -354,22 +352,6 @@ function SidePanel(props){
               }
             </div>
           </div>
-          <Grid container className={classes.arrowBox} >
-            <Grid item className={classes.arrowIconBox} >
-              {hasPrev &&
-                <IconButton title="previous tree" onClick={props.onPrevious} >
-                  <ArrowBackIosIcon className={classes.arrow} />
-                </IconButton>
-              }
-            </Grid>
-            <Grid item className={classes.arrowIconBox}>
-              {hasNext &&
-                <IconButton title="next tree" onClick={props.onNext} >
-                  <ArrowForwardIosIcon className={classes.arrow} />
-                </IconButton>
-              }
-            </Grid>
-          </Grid>
           <CardContent>
             <Grid container className={classes.titleBox} >
               <Grid item>

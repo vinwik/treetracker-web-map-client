@@ -15,9 +15,16 @@ import React from "react"
 
 import ShareIcon from "./ShareIcon";
 
-const useStyles = makeStyles(theme => ({
-  box1:{
+const useStyles = makeStyles((theme) => ({
+  title: {
+    paddingBottom: 0,
+    paddingTop: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+  },
+  box1: {
     padding: theme.spacing(4),
+    paddingBottom: theme.spacing(3),
+    paddingTop: 0,
   },
   box2:{
     padding: theme.spacing(2),
@@ -25,6 +32,9 @@ const useStyles = makeStyles(theme => ({
   code: {
     minWidth: 400,
     margin: 10,
+  },
+  icon: {
+    color: 'white',
   },
 }));
 
@@ -120,7 +130,7 @@ function Share(props){
         open={isOpen}
         onClose={handleClose}
       >
-        <DialogTitle>
+        <DialogTitle className={classes.title}>
           <Grid container justify="space-between" alignItems="center" >
             <Grid item xs={8} >
               Share

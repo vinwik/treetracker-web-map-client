@@ -26,6 +26,7 @@ const MOBILE_WIDTH = 960;
 
 const PRIMARY = "#8bc34a"
 const SECONDARY = "#ffca28"
+const BG_COLOR = '#1d1d1d';
 
 const theme = createMuiTheme({
 	spacing		: 4,
@@ -37,14 +38,28 @@ const theme = createMuiTheme({
 			'Arial',
 			'sans-serif',
 		].join(','),
+    color: 'white',
 	},
   palette: {
+    type: 'dark',
     primary: {
       main: PRIMARY,
     },
     secondary: {
       main: SECONDARY,
-    }
+    },
+    background: {
+      paper: BG_COLOR,
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 510,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
   },
 });
 
@@ -52,11 +67,12 @@ log.info("theme:", theme);
 
 const useStyles = makeStyles(theme => ({
   mapContainer: {
-    transform: "scale(1.02)",
+    transform: "scale(1)",
     transition: "all 2s",
     position: "absolute",
     width: "100%",
     height: "100%",
+    background: BG_COLOR,
   },
   mapLoaded: {
     transform: "scale(1)",
@@ -69,8 +85,8 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2),
     boxSizing: "border-box",
     zIndex: 2,
-    [theme.breakpoints.down("sm")]: {
-      width: "calc(100% - 22px)",
+    [theme.breakpoints.down('xs')]: {
+      width: 'calc(100% - 22px)',
       paddingTop: theme.spacing(1),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
@@ -90,8 +106,8 @@ const useStyles = makeStyles(theme => ({
     width: 396,
     backgroundColor: "white",
     zIndex: 1,
-    [theme.breakpoints.down("sm")]: {
-      width: "calc(100vw - 22px)",
+    [theme.breakpoints.down('xs')]: {
+      width: 'calc(100vw - 22px)',
     },
   },
   treePicture: {
