@@ -26,7 +26,7 @@ const MOBILE_WIDTH = 960;
 
 const PRIMARY = "#8bc34a"
 const SECONDARY = "#ffca28"
-const BG_COLOR = '#1d1d1d';
+const BG_COLOR = '#333';
 
 const theme = createMuiTheme({
 	spacing		: 4,
