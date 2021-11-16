@@ -118,7 +118,13 @@ const useStyles = makeStyles(theme => ({
   avatarPaper: {
     borderRadius: "50%",
   },
-  avatar: {
+  avatarGuardian: {
+    height: 60,
+    width: 60,
+    border: `4px solid ${BG_COLOR}`,
+    backgroundColor: "white",
+  },
+  avatarSteward: {
     height: 108,
     width: 108,
     marginTop: -77,
@@ -131,6 +137,9 @@ const useStyles = makeStyles(theme => ({
       width: "70%",
       objectFit: "unset",
     },
+  },
+  guardianBox: {
+    padding: 15,
   },
   titleBox: {
     marginBottom: 15,
@@ -341,6 +350,32 @@ function SidePanel(props){
           </Paper>
         </div>
         <Card className={classes.card + ` ${isTreePictureLoaded?"treePictureLoaded":"treePictureLoading"}`} >
+          <Grid container className={classes.guardianBox} direction="row" justifyContent="flex-start" alignItems="center">
+            <Grid item>
+              <Paper elevation={5} className={classes.avatarPaper} >
+                {treeDetail ?
+                  <>
+                  {treeDetail.user_image_url?
+                    <Avatar id="planter-img" className={`${classes.avatarGuardian}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
+                  :
+                    <Avatar id="planter-img" className={`${classes.avatarGuardian}`} src={require("../images/placeholder.png")} />
+                  }
+                  </>
+                :
+                  <Avatar id="planter-img" className={`${classes.avatarGuardian}`} />
+                }
+              </Paper>
+            </Grid>
+            <Grid item className={classes.nameBox}>
+              <Typography variant="h6" >
+                {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
+                {`Firstname Lastname`}
+              </Typography>
+              <Typography variant="body2" >
+                Guardian
+              </Typography>
+            </Grid>
+          </Grid>
           {!isTreePictureLoaded &&
             <LinearProgress className={classes.progress} />
           }
@@ -361,19 +396,22 @@ function SidePanel(props){
                   {treeDetail ?
                     <>
                     {treeDetail.user_image_url?
-                      <Avatar id="planter-img" className={`${classes.avatar}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
+                      <Avatar id="planter-img" className={`${classes.avatarSteward}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
                     :
-                      <Avatar id="planter-img" className={`${classes.avatar} ${classes.avatarLogo}`} src={require("../images/greenstand_logo.svg")} />
+                      <Avatar id="planter-img" className={`${classes.avatarSteward} ${classes.avatarLogo}`} src={require("../images/greenstand_logo.svg")} />
                     }
                     </>
                   :
-                    <Avatar id="planter-img" className={`${classes.avatar}`} />
+                    <Avatar id="planter-img" className={`${classes.avatarSteward}`} />
                   }
                 </Paper>
               </Grid>
-              <Grid item className={classes.nameBox} >
+              <Grid item className={classes.nameBox} styles={{marginTop: -20}} >
                 <Typography variant="h5" >
                   {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`}
+                </Typography>
+                <Typography variant="body2" >
+                  Steward
                 </Typography>
               </Grid>
             </Grid>
