@@ -45,6 +45,8 @@ const WIDTH = 396;
 const MAX_WIDTH = 480;
 const HEIGHT = 520;
 
+const BG_COLOR = '#333';
+
 const NONE = "--";
 
 const useStyles = makeStyles(theme => ({
@@ -120,7 +122,7 @@ const useStyles = makeStyles(theme => ({
     height: 108,
     width: 108,
     marginTop: -77,
-    border: "6px solid white",
+    border: `6px solid ${BG_COLOR}`,
     backgroundColor: "white",
   },
   avatarLogo: {
@@ -184,7 +186,7 @@ const useStyles = makeStyles(theme => ({
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     cursor: "pointer",
-    opacity: .8,
+    opacity: .9,
   },
   showButton: {
     position: "absolute",
@@ -448,7 +450,7 @@ function SidePanel(props){
             {treeDetail &&
               <>
                 <List icon={AccessTime} tooltip="Create date" >
-                  <Item title="Created at" value={new Date(treeDetail.time_created).toLocaleString("en-GB")} />
+                  <Item title="Created at" value={new Date(treeDetail.time_created).toLocaleString()} />
                 </List>
                 <List
                   icon={Face}
