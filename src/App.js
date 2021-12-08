@@ -214,7 +214,7 @@ function App() {
   const [arrow, setArrow] = React.useState({});
   const [logoSrc, setLogoSrc] = React.useState(undefined);
   const [timelineDate, setTimelineDate] = React.useState(undefined);
-  const [timelineEnabled, setTimelineEnabled] = React.useState(true);
+  const [timelineEnabled, setTimelineEnabled] = React.useState(false);
 
   function showPanel(tree){
     expect(tree).match({
@@ -306,7 +306,7 @@ function App() {
   function handleSidePanelClose(){
     log.debug("handleSidePanelClose");
     setSidePanelState("none");
-    setTimelineEnabled(true);
+    // setTimelineEnabled(true);
     const {map} = mapRef.current;
     map.unselectMarker();
   }
