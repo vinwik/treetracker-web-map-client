@@ -354,7 +354,7 @@ function SidePanel(props){
                 </Typography>
                 <Typography variant="h6" >
                   {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
-                  {`THREE-WORD-NAME`}
+                  {tree.name ? tree.name.toUpperCase() : `THREE-WORD-NAME`}
                 </Typography>
               </Grid>
               <Grid item>
