@@ -430,21 +430,24 @@ function SidePanel(props){
                   <Typography variant="body2" style={{opacity: 0.7}} >
                     Tree Guardian
                   </Typography>
-                  {treeDetail && treeDetail?.wallet !== 'FinorX' ?
-                    <Typography variant="h6" >
-                      Firstname Lastname
-                    </Typography>
-                    : 
-                    <Grid container direction="row" justify="space-between" alignItems="center" style={{width: '100%'}}>
-                      <Grid item>
-                        <Typography variant="h6" >
-                          No Guardian
-                        </Typography>
+                  {treeDetail ? 
+                    (treeDetail?.wallet !== 'FinorX' ?
+                      <Typography variant="h6" >
+                        Firstname Lastname
+                      </Typography>
+                      : 
+                      <Grid container direction="row" justify="space-between" alignItems="center" style={{width: '100%'}}>
+                        <Grid item>
+                          <Typography variant="h6" >
+                            No Guardian
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Button color='primary' variant="contained" style={{display: 'block'}}><span>Claim Token</span><div style={{fontSize: '0.8em', lineHeight: 1}}>(coming soon!)</div></Button>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <Button color='primary' variant="contained" style={{display: 'block'}}><span>Claim Token</span><div style={{fontSize: '0.8em', lineHeight: 1}}>(coming soon!)</div></Button>
-                      </Grid>
-                    </Grid>
+                    )
+                    : <Skeleton width="100%" height='32px' animation="wave"/>
                   }
                 </Box>
               </Grid>
@@ -484,7 +487,10 @@ function SidePanel(props){
                     Tree Steward
                   </Typography>
                   <Typography variant="body1" style={{fontSize: '1.1rem', lineHeight: 1.2}}>
-                    {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`}
+                    {treeDetail ? 
+                      `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`
+                      : <Skeleton width="100%" height='22px' animation="wave"/>
+                    }
                   </Typography>
                 </Grid>
               </Grid>
