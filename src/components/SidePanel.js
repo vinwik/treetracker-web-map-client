@@ -94,7 +94,6 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "roboto",
     color: 'white',
     letterSpacing: "1px",
-    //textShadow: "1px 1px 2px #ffffff, -1px -1px 1px #4d4c4c",
     background: '#424242',
     height: HEIGHT,
     [theme.breakpoints.down('xs')]: {
@@ -357,7 +356,6 @@ function SidePanel(props){
                 </Typography>
                   {treeDetail ? 
                     <Typography variant="h6" >
-                      {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
                       {treeDetail.name ? treeDetail.name.toUpperCase() : `THREE-WORD-NAME`}
                     </Typography>
                     : 
@@ -451,21 +449,9 @@ function SidePanel(props){
                   }
                 </Box>
               </Grid>
-              {/* <Grid item className={classes.nameBox} >
-                <Typography variant="h5" >
-                  {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`}
-                </Typography>
-              </Grid> */}
             </Grid>
-            {/* <Box py={1} >
-              <Typography variant="body1" >
-                Claimed by {'FirstName LastName'}
-              </Typography>
-            </Box> */}
+            
             <Box p={4} style={{backgroundColor: '#444', borderRadius: 10}}>
-              {/* <Typography variant="subtitle1" >
-                Tree Guardian
-              </Typography> */}
               <Grid container direction="row" justify="flex-start" alignItems="center">
                 <Grid item>
                   <Paper elevation={5} className={classes.avatarPaper} >
@@ -495,77 +481,29 @@ function SidePanel(props){
                 </Grid>
               </Grid>
             </Box>
+
             <Box py={4}>
               <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
                 Impact Manager
               </Typography>
               <img height="90" src={require("../images/finorx.png")} alt="FinorX" />
             </Box>
-            {/* <Grid container justify="space-between" alignItems="center" >
-              <Grid item>
-                {treeDetail && treeDetail.approved &&
-                <Grid container className={classes.verify} >
-                  <Grid item className={classes.icon} >
-                    <Check style={{ color: "#abe38f"}} />
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="subtitle1" >
-                      Tree Verified
-                    </Typography>
-                  </Grid>
-                </Grid>
-                }
-                {treeDetail && treeDetail.token_uuid &&
-                  <Grid container className={classes.verify} >
-                    <Grid item className={classes.icon} >
-                      <Check style={{ color: "#abe38f"}} />
-                    </Grid>
-                    <Grid item>
-                      <Typography variant="subtitle1" >
-                        Token issued
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                }
-              </Grid>
-              <Grid item>
-                {tree.id &&
-                  <Share
-                    shareUrl={`https://treetracker.org/?treeid=${tree.id}`}
-                  />
-                }
-              </Grid>
-            </Grid> */}
+
             <Divider/>
-            {/* <Box height={15} /> */}
+
             <Box py={4}>
               <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
                 Impact Producer
               </Typography>
               <img height="50" src={require("../images/fcc.png")} alt="FCC" style={{marginTop: 10}}/>
             </Box>
-            {/* <Box height={15} /> */}
             <Grid container className={classes.infoItem} >
-              {/* <Grid item className={classes.detailIconBox} >
-                <Tooltip title="Tree ID">
-                  <Avatar className={`${classes.detailIcon} ${classes.hash}`} >
-                    #
-                  </Avatar>
-                </Tooltip>
-              </Grid> */}
               <Grid item>
                 <Item title="Tree ID" prefix="#" value={tree.id} />
               </Grid>
             </Grid>
             {treeDetail && treeDetail.name &&
               <Grid container className={classes.infoItem} >
-                {/* <Grid item className={classes.detailIconBox} >
-                  <Tooltip title="Tree ID">
-                    <Avatar className={`${classes.detailIcon} ${classes.name}`} >
-                      <SentimentSatisfiedAltIcon/>
-                    </Avatar>
-                  </Tooltip>
-                </Grid> */}
                 <Grid item>
                   <Item title="Name" prefix="" value={treeDetail.name} />
                 </Grid>
@@ -691,12 +629,8 @@ function SidePanel(props){
 }
 
 function Item(props){
-  const classes = useStyles();
   if(!props.value) return null;
   return(
-    // <Typography className={classes.item} variant="body1" >
-    //   {props.title}: {props.prefix ||""}{props.value || NONE}
-    // </Typography>
     <Box py={2}>
       <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
         {props.title}
@@ -713,11 +647,6 @@ function List(props){
 
   return(
     <Grid container className={classes.infoItem + " list-root"} >
-      {/* <Grid item className={classes.detailIconBox}>
-        <Tooltip title={props.tooltip} >
-          <props.icon className={classes.detailIcon} />
-        </Tooltip>
-      </Grid> */}
       <Grid item className={"list-container"} >
         {props.children}
       </Grid>
