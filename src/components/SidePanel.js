@@ -3,8 +3,10 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import Done from '@material-ui/icons/Done';
 import Check from '@material-ui/icons/CheckCircle';
 import Face from '@material-ui/icons/Face';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
@@ -76,6 +78,9 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     width: "100%",
     zIndex: 9,
+  },
+  headerBox: {
+    padding: 15,
   },
   pictureBox: {
     position: "relative",
@@ -203,10 +208,10 @@ const useStyles = makeStyles(theme => ({
     zIndex: 2,
   },
   infoItem: {
-    marginBottom: 10,
-    "&>div": {
-      marginRight: 5,
-    },
+    // marginBottom: 10,
+    // "&>div": {
+    //   marginRight: 5,
+    // },
   },
   icon: {
     marginRight: theme.spacing(1),
@@ -341,6 +346,48 @@ function SidePanel(props){
           </Paper>
         </div>
         <Card className={classes.card + ` ${isTreePictureLoaded?"treePictureLoaded":"treePictureLoading"}`} >
+          <Grid container className={classes.headerBox}>  
+            <Grid container direction="row" justify="space-between" alignItems="center">  
+              <Grid item>
+                <Typography variant="body2" style={{opacity: 0.7}} >
+                  Tree
+                </Typography>
+                <Typography variant="h6" >
+                  {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
+                  {`THREE-WORD-NAME`}
+                </Typography>
+              </Grid>
+              <Grid item>
+                {tree.id &&
+                  <Share
+                    shareUrl={`https://treetracker.org/?treeid=${tree.id}`}
+                  />
+                }
+              </Grid>
+            </Grid>
+            <Grid container direction='row' style={{marginTop: 10}}>
+              {/* {treeDetail && treeDetail.approved && */}
+              <Grid item style={{marginRight: 5}}>
+                <Chip
+                  size="small"
+                  icon={<Done />}
+                  label='Tree Verified'
+                  color="primary"
+                />
+              </Grid>
+              {/* } */}
+              {/* {treeDetail && treeDetail.token_uuid && */}
+              <Grid item>
+                <Chip
+                  size="small"
+                  icon={<Done />}
+                  label='Token Issued'
+                  color="primary"
+                />
+              </Grid>
+              {/* } */}
+            </Grid>
+          </Grid>
           {!isTreePictureLoaded &&
             <LinearProgress className={classes.progress} />
           }
@@ -355,7 +402,7 @@ function SidePanel(props){
             </div>
           </div>
           <CardContent>
-            <Grid container className={classes.titleBox} >
+            <Grid container className={classes.titleBox} direction='column' alignItems='flex-start'>
               <Grid item>
                 <Paper elevation={5} className={classes.avatarPaper} >
                   {treeDetail ?
@@ -371,13 +418,64 @@ function SidePanel(props){
                   }
                 </Paper>
               </Grid>
-              <Grid item className={classes.nameBox} >
+              <Grid item>
+                <Box mt={2}>
+                  <Typography variant="body2" style={{opacity: 0.7}} >
+                      Tree Guardian
+                    </Typography>
+                  <Typography variant="h6" >
+                    {treeDetail && `Firstname Lastname`}
+                  </Typography>
+                </Box>
+              </Grid>
+              {/* <Grid item className={classes.nameBox} >
                 <Typography variant="h5" >
                   {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`}
                 </Typography>
-              </Grid>
+              </Grid> */}
             </Grid>
-            <Grid container justify="space-between" alignItems="center" >
+            {/* <Box py={1} >
+              <Typography variant="body1" >
+                Claimed by {'FirstName LastName'}
+              </Typography>
+            </Box> */}
+            <Box p={4} style={{backgroundColor: '#444', borderRadius: 10}}>
+              {/* <Typography variant="subtitle1" >
+                Tree Guardian
+              </Typography> */}
+              <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Grid item>
+                  <Paper elevation={5} className={classes.avatarPaper} >
+                    {treeDetail ?
+                      <>
+                      {treeDetail.user_image_url?
+                        <Avatar id="planter-img" className={`${classes.avatarGuardian}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
+                      :
+                        <Avatar id="planter-img" className={`${classes.avatarGuardian}`} />
+                      }
+                      </>
+                    :
+                      <Avatar id="planter-img" className={`${classes.avatarGuardian}`} />
+                    }
+                  </Paper>
+                </Grid>
+                <Grid item className={classes.nameBox}>
+                  <Typography variant="body2" style={{opacity: 0.7}} >
+                    Tree Steward
+                  </Typography>
+                  <Typography variant="body1" style={{fontSize: '1.1rem', lineHeight: 1.2}}>
+                    {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box py={4}>
+              <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
+                Impact Manager
+              </Typography>
+              <img height="90" src={require("../images/finorx.png")} alt="FinorX" />
+            </Box>
+            {/* <Grid container justify="space-between" alignItems="center" >
               <Grid item>
                 {treeDetail && treeDetail.approved &&
                 <Grid container className={classes.verify} >
@@ -386,7 +484,7 @@ function SidePanel(props){
                   </Grid>
                   <Grid item>
                     <Typography variant="subtitle1" >
-                      Tree Verified{/*TODO wallet: token issued*/}
+                      Tree Verified
                     </Typography>
                   </Grid>
                 </Grid>
@@ -411,17 +509,24 @@ function SidePanel(props){
                   />
                 }
               </Grid>
-            </Grid>
+            </Grid> */}
             <Divider/>
-            <Box height={15} />
+            {/* <Box height={15} /> */}
+            <Box py={4}>
+              <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
+                Impact Producer
+              </Typography>
+              <img height="50" src={require("../images/fcc.png")} alt="FCC" style={{marginTop: 10}}/>
+            </Box>
+            {/* <Box height={15} /> */}
             <Grid container className={classes.infoItem} >
-              <Grid item className={classes.detailIconBox} >
+              {/* <Grid item className={classes.detailIconBox} >
                 <Tooltip title="Tree ID">
                   <Avatar className={`${classes.detailIcon} ${classes.hash}`} >
                     #
                   </Avatar>
                 </Tooltip>
-              </Grid>
+              </Grid> */}
               <Grid item>
                 <Item title="Tree ID" prefix="#" value={tree.id} />
               </Grid>
@@ -563,9 +668,17 @@ function Item(props){
   const classes = useStyles();
   if(!props.value) return null;
   return(
-    <Typography className={classes.item} variant="body1" >
-      {props.title}: {props.prefix ||""}{props.value || NONE}
-    </Typography>
+    // <Typography className={classes.item} variant="body1" >
+    //   {props.title}: {props.prefix ||""}{props.value || NONE}
+    // </Typography>
+    <Box py={2}>
+      <Typography variant="subtitle1" style={{fontSize: '1.1rem'}} >
+        {props.title}
+      </Typography>
+      <Typography variant="body1" style={{lineHeight: 1.2}} >
+        {props.prefix ||""}{props.value || NONE}
+      </Typography>
+  </Box>
   )
 }
 
@@ -574,11 +687,11 @@ function List(props){
 
   return(
     <Grid container className={classes.infoItem + " list-root"} >
-      <Grid item className={classes.detailIconBox}>
+      {/* <Grid item className={classes.detailIconBox}>
         <Tooltip title={props.tooltip} >
           <props.icon className={classes.detailIcon} />
         </Tooltip>
-      </Grid>
+      </Grid> */}
       <Grid item className={"list-container"} >
         {props.children}
       </Grid>
