@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Done from '@material-ui/icons/Done';
 import Check from '@material-ui/icons/CheckCircle';
@@ -327,6 +328,8 @@ function SidePanel(props){
     return null;
   }
 
+  console.log(treeDetail);
+
   return (
     <>
     <Slide in={state === "show"} direction="right" 
@@ -348,14 +351,18 @@ function SidePanel(props){
         <Card className={classes.card + ` ${isTreePictureLoaded?"treePictureLoaded":"treePictureLoading"}`} >
           <Grid container className={classes.headerBox}>  
             <Grid container direction="row" justify="space-between" alignItems="center">  
-              <Grid item>
+              <Grid item style={{flexGrow: 1}}>
                 <Typography variant="body2" style={{opacity: 0.7}} >
                   Tree
                 </Typography>
-                <Typography variant="h6" >
-                  {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
-                  {tree.name ? tree.name.toUpperCase() : `THREE-WORD-NAME`}
-                </Typography>
+                  {treeDetail ? 
+                    <Typography variant="h6" >
+                      {/* {treeDetail && `${treeDetail.first_name || ""} ${treeDetail.last_name?.slice(0, 1) || ""}`} */}
+                      {treeDetail.name ? treeDetail.name.toUpperCase() : `THREE-WORD-NAME`}
+                    </Typography>
+                    : 
+                    <Skeleton width="100%" height='32px' animation="wave" />
+                  }
               </Grid>
               <Grid item>
                 {tree.id &&
@@ -366,26 +373,26 @@ function SidePanel(props){
               </Grid>
             </Grid>
             <Grid container direction='row' style={{marginTop: 10}}>
-              {/* {treeDetail && treeDetail.approved && */}
-              <Grid item style={{marginRight: 5}}>
-                <Chip
-                  size="small"
-                  icon={<Done />}
-                  label='Tree Verified'
-                  color="primary"
-                />
-              </Grid>
-              {/* } */}
-              {/* {treeDetail && treeDetail.token_uuid && */}
-              <Grid item>
-                <Chip
-                  size="small"
-                  icon={<Done />}
-                  label='Token Issued'
-                  color="primary"
-                />
-              </Grid>
-              {/* } */}
+              {treeDetail && treeDetail.approved &&
+                <Grid item style={{marginRight: 5}}>
+                  <Chip
+                    size="small"
+                    icon={<Done />}
+                    label='Tree Verified'
+                    color="primary"
+                  />
+                </Grid>
+              } 
+              {treeDetail && treeDetail.token_uuid &&
+                <Grid item>
+                  <Chip
+                    size="small"
+                    icon={<Done />}
+                    label='Token Issued'
+                    color="primary"
+                  />
+                </Grid>
+              } 
             </Grid>
           </Grid>
           {!isTreePictureLoaded &&
@@ -407,7 +414,7 @@ function SidePanel(props){
                 <Paper elevation={5} className={classes.avatarPaper} >
                   {treeDetail ?
                     <>
-                    {treeDetail.user_image_url?
+                    {treeDetail.user_image_url && treeDetail?.wallet !== 'FinorX' ?
                       <Avatar id="planter-img" className={`${classes.avatar}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
                     :
                       <Avatar id="planter-img" className={`${classes.avatar} ${classes.avatarLogo}`} src={require("../images/greenstand_logo.svg")} />
@@ -418,14 +425,27 @@ function SidePanel(props){
                   }
                 </Paper>
               </Grid>
-              <Grid item>
-                <Box mt={2}>
+              <Grid item style={{width: '100%'}}>
+                <Box mt={2} >
                   <Typography variant="body2" style={{opacity: 0.7}} >
-                      Tree Guardian
-                    </Typography>
-                  <Typography variant="h6" >
-                    {treeDetail && `Firstname Lastname`}
+                    Tree Guardian
                   </Typography>
+                  {treeDetail && treeDetail?.wallet !== 'FinorX' ?
+                    <Typography variant="h6" >
+                      Firstname Lastname
+                    </Typography>
+                    : 
+                    <Grid container direction="row" justify="space-between" alignItems="center" style={{width: '100%'}}>
+                      <Grid item>
+                        <Typography variant="h6" >
+                          No Guardian
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Button color='primary' variant="contained" style={{display: 'block'}}><span>Claim Token</span><div style={{fontSize: '0.8em', lineHeight: 1}}>(coming soon!)</div></Button>
+                      </Grid>
+                    </Grid>
+                  }
                 </Box>
               </Grid>
               {/* <Grid item className={classes.nameBox} >
@@ -533,13 +553,13 @@ function SidePanel(props){
             </Grid>
             {treeDetail && treeDetail.name &&
               <Grid container className={classes.infoItem} >
-                <Grid item className={classes.detailIconBox} >
+                {/* <Grid item className={classes.detailIconBox} >
                   <Tooltip title="Tree ID">
                     <Avatar className={`${classes.detailIcon} ${classes.name}`} >
                       <SentimentSatisfiedAltIcon/>
                     </Avatar>
                   </Tooltip>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Item title="Name" prefix="" value={treeDetail.name} />
                 </Grid>
