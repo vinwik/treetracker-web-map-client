@@ -295,9 +295,9 @@ function SidePanel(props){
         cancelToken: source.token,
       })
         .then(r => {
-          setTreeDetail(r.data);
+          setTreeDetail(r.data.data);
           //if there isn't image, close load spin
-          if(!r.data.image_url){
+          if(!r.data.data.image_url){
             setTreePictureLoaded(true);
           }
         })
@@ -412,8 +412,8 @@ function SidePanel(props){
                 <Paper elevation={5} className={classes.avatarPaper} >
                   {treeDetail ?
                     <>
-                    {treeDetail.user_image_url && treeDetail?.wallet !== 'FinorX' ?
-                      <Avatar id="planter-img" className={`${classes.avatar}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
+                    {treeDetail.user?.image && treeDetail?.wallet !== 'FinorX' ?
+                      <Avatar id="planter-img" className={`${classes.avatar}`} src={treeDetail.user.image} />
                     :
                       <Avatar id="planter-img" className={`${classes.avatar} ${classes.avatarLogo}`} src={require("../images/greenstand_logo.svg")} />
                     }
@@ -428,25 +428,43 @@ function SidePanel(props){
                   <Typography variant="body2" style={{opacity: 0.7}} >
                     Tree Guardian
                   </Typography>
-                  {treeDetail ? 
-                    (treeDetail?.wallet !== 'FinorX' ?
-                      <Typography variant="h6" >
-                        Firstname Lastname
-                      </Typography>
-                      : 
-                      <Grid container direction="row" justify="space-between" alignItems="center" style={{width: '100%'}}>
-                        <Grid item>
-                          <Typography variant="h6" >
-                            No Guardian
+                  {treeDetail ? (
+                      <>
+                        {treeDetail?.user && treeDetail?.wallet !== 'FinorX' ? (
+                          <Typography variant="h6">
+                            {treeDetail.user.firstName} {treeDetail.user.lastName}
                           </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Button color='primary' variant="contained" style={{display: 'block'}}><span>Claim Token</span><div style={{fontSize: '0.8em', lineHeight: 1}}>(coming soon!)</div></Button>
-                        </Grid>
-                      </Grid>
-                    )
-                    : <Skeleton width="100%" height='32px' animation="wave"/>
-                  }
+                        ) : (
+                          <Grid
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                            style={{ width: '100%' }}
+                          >
+                            <Grid item>
+                              <Typography variant="h6">No Guardian</Typography>
+                            </Grid>
+                            <Grid item>
+                              <Button
+                                color="primary"
+                                variant="contained"
+                                style={{ display: 'block' }}
+                              >
+                                <span>Claim Token</span>
+                                <div
+                                  style={{ fontSize: '0.8em', lineHeight: 1 }}
+                                >
+                                  (coming soon!)
+                                </div>
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        )}
+                      </>
+                    ) : (
+                      <Skeleton width="100%" height="32px" animation="wave" />
+                    )}
                 </Box>
               </Grid>
             </Grid>
@@ -458,7 +476,7 @@ function SidePanel(props){
                     {treeDetail ?
                       <>
                       {treeDetail.user_image_url?
-                        <Avatar id="planter-img" className={`${classes.avatarGuardian}`} src={treeDetail.user_image_url.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
+                        <Avatar id="planter-img" className={`${classes.avatarGuardian}`} src={treeDetail.user_image_url?.startsWith("http")?treeDetail.user_image_url:`http://${treeDetail.user_image_url}`} />
                       :
                         <Avatar id="planter-img" className={`${classes.avatarGuardian}`} />
                       }
