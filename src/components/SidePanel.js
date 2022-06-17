@@ -42,7 +42,7 @@ import log from "loglevel";
 const CancelToken = axios.CancelToken;
 let source;
 
-const treetrackerApiUrl = process.env.REACT_APP_API;
+const getTreeApiUrl = process.env.REACT_APP_TREE_API;
 
 const WIDTH = 396;
 const MAX_WIDTH = 480;
@@ -291,7 +291,7 @@ function SidePanel(props){
       setTreeDetail(undefined);
       source && source.cancel("clean previous request");
       source = CancelToken.source();
-      axios.get(`${treetrackerApiUrl}tree?tree_id=${tree.id}`,{
+      axios.get(`${getTreeApiUrl}tree?treeId=${tree.id}`, {
         cancelToken: source.token,
       })
         .then(r => {
